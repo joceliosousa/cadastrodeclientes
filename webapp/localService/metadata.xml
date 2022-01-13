@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZDEVFIORI20MONITORVENDAS_SRV" xml:lang="pt" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Cliente" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ClienteID"/>
+                </Key>
+                <Property Name="ClienteID" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="ClienteID" sap:updatable="false"/>
+                <Property Name="Nome" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Nome"/>
+                <Property Name="Telefone" Type="Edm.String" sap:unicode="false" sap:label="Telefone" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UF" Type="Edm.String" sap:unicode="false" sap:label="UF"/>
+                <Property Name="Email" Type="Edm.String" sap:unicode="false" sap:label="Email" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" sap:unicode="false" sap:label="Status"/>
+                <NavigationProperty Name="vendas" Relationship="ZDEVFIORI20MONITORVENDAS_SRV.ClienteToVenda" FromRole="FromRole_ClienteToVenda" ToRole="ToRole_ClienteToVenda"/>
+            </EntityType>
+            <EntityType Name="SalesOrder" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ordemid"/>
+                </Key>
+                <Property Name="Ordemid" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Doc.vendas" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DataCriacao" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Dta.criação" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Tipo" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Tp.doc.vdns." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Valor" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:label="Valor líquido" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Referencia" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Dt.ref.cliente" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cliente" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Emissor ordem" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Nome" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Nome" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ItemVenda" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="VendaID"/>
+                    <PropertyRef Name="Item"/>
+                </Key>
+                <Property Name="VendaID" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Doc.vendas" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Item" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Material" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Quantidade" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="3" sap:unicode="false" sap:label="QtdOrdemAcum." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UM" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Unidade venda" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="ValorLiquido" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:label="Valor líquido" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Venda" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="IDVenda"/>
+                </Key>
+                <Property Name="IDVenda" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DataCriacao" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="Data" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Descricao" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cliente" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ValorLiquido" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="2" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CriadoPor" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="itens" Relationship="ZDEVFIORI20MONITORVENDAS_SRV.VendaToItem" FromRole="FromRole_VendaToItem" ToRole="ToRole_VendaToItem"/>
+                <NavigationProperty Name="cliente" Relationship="ZDEVFIORI20MONITORVENDAS_SRV.VendaToCliente" FromRole="FromRole_VendaToCliente" ToRole="ToRole_VendaToCliente"/>
+                <NavigationProperty Name="emissor" Relationship="ZDEVFIORI20MONITORVENDAS_SRV.VendaToCliente" FromRole="FromRole_VendaToCliente" ToRole="ToRole_VendaToCliente"/>
+                <NavigationProperty Name="pagador" Relationship="ZDEVFIORI20MONITORVENDAS_SRV.VendaToCliente" FromRole="FromRole_VendaToCliente" ToRole="ToRole_VendaToCliente"/>
+            </EntityType>
+            <EntityType Name="Material" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MaterialID"/>
+                </Key>
+                <Property Name="MaterialID" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Material" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Denominacao" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Denominação" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TipoMaterial" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Tipo material" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SetorAtividade" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Setor atividade" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UMBasica" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="UM básica" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                <Property Name="Centro" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="centro" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="VendaToCliente" sap:content-version="1">
+                <End Type="ZDEVFIORI20MONITORVENDAS_SRV.Venda" Multiplicity="1" Role="FromRole_VendaToCliente"/>
+                <End Type="ZDEVFIORI20MONITORVENDAS_SRV.Cliente" Multiplicity="1" Role="ToRole_VendaToCliente"/>
+            </Association>
+            <Association Name="VendaToItem" sap:content-version="1">
+                <End Type="ZDEVFIORI20MONITORVENDAS_SRV.Venda" Multiplicity="1" Role="FromRole_VendaToItem"/>
+                <End Type="ZDEVFIORI20MONITORVENDAS_SRV.ItemVenda" Multiplicity="*" Role="ToRole_VendaToItem"/>
+            </Association>
+            <Association Name="ClienteToVenda" sap:content-version="1">
+                <End Type="ZDEVFIORI20MONITORVENDAS_SRV.Cliente" Multiplicity="1" Role="FromRole_ClienteToVenda"/>
+                <End Type="ZDEVFIORI20MONITORVENDAS_SRV.Venda" Multiplicity="*" Role="ToRole_ClienteToVenda"/>
+            </Association>
+            <EntityContainer Name="ZDEVFIORI20MONITORVENDAS_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ClienteSet" EntityType="ZDEVFIORI20MONITORVENDAS_SRV.Cliente" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="SalesOrderSet" EntityType="ZDEVFIORI20MONITORVENDAS_SRV.SalesOrder" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ItemVendaSet" EntityType="ZDEVFIORI20MONITORVENDAS_SRV.ItemVenda" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="VendaSet" EntityType="ZDEVFIORI20MONITORVENDAS_SRV.Venda" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="MaterialSet" EntityType="ZDEVFIORI20MONITORVENDAS_SRV.Material" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="VendaToCliente_AssocSet" Association="ZDEVFIORI20MONITORVENDAS_SRV.VendaToCliente" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="VendaSet" Role="FromRole_VendaToCliente"/>
+                    <End EntitySet="ClienteSet" Role="ToRole_VendaToCliente"/>
+                </AssociationSet>
+                <AssociationSet Name="ClienteToVenda_AssocSet" Association="ZDEVFIORI20MONITORVENDAS_SRV.ClienteToVenda" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ClienteSet" Role="FromRole_ClienteToVenda"/>
+                    <End EntitySet="VendaSet" Role="ToRole_ClienteToVenda"/>
+                </AssociationSet>
+                <AssociationSet Name="VendaToItem_AssocSet" Association="ZDEVFIORI20MONITORVENDAS_SRV.VendaToItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="VendaSet" Role="FromRole_VendaToItem"/>
+                    <End EntitySet="ItemVendaSet" Role="ToRole_VendaToItem"/>
+                </AssociationSet>
+                <FunctionImport Name="AlterarStatus" ReturnType="ZDEVFIORI20MONITORVENDAS_SRV.Cliente" EntitySet="ClienteSet" m:HttpMethod="GET" sap:action-for="ZDEVFIORI20MONITORVENDAS_SRV.Cliente">
+                    <Parameter Name="ID" Type="Edm.String" Mode="In"/>
+                </FunctionImport>
+            </EntityContainer>
+            <atom:link rel="self" href="https://lnl-s4h.opustech.com.br:5200/sap/opu/odata/sap/ZDEVFIORI20MONITORVENDAS_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://lnl-s4h.opustech.com.br:5200/sap/opu/odata/sap/ZDEVFIORI20MONITORVENDAS_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

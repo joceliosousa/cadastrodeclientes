@@ -1,0 +1,130 @@
+<mvc:View
+	controllerName="meufiori.cadastrodeclientes.controller.Worklist"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:semantic="sap.f.semantic">
+
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false">
+
+		<semantic:titleHeading>
+			<Title
+				text="Lista de Clientes"
+				level="H2"/>
+		</semantic:titleHeading>
+
+		<semantic:content>
+			<IconTabBar id="idIconTabBarFiori2" upperCase="true" expanded="{device>/isNoPhone}" selectedKey="key2" class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter text="Clientes" key="key1">
+						<content> 		
+							<Table
+								id="table"
+								width="auto"
+								mode="MultiSelect"
+								delete="onClienteDelete"
+								items="{
+									path: '/ClienteSet',
+									sorter: {
+										path: 'ClienteID',
+										descending: false
+									}
+								}"
+								noDataText="{worklistView>/tableNoDataText}"
+								busyIndicatorDelay="{worklistView>/tableBusyDelay}"
+								growing="true"
+								growingScrollToLoad="false"
+								updateFinished=".onUpdateFinished">
+
+								<headerToolbar>
+									<OverflowToolbar>
+										<Title
+											id="tableHeader"
+											text="{worklistView>/worklistTableTitle}"
+											level="H3"/>
+										<ToolbarSpacer />
+										<core:ExtensionPoint name="extClienteTabPanel"	/>
+										<Button icon="sap-icon://delete" press="onClienteDelete" />
+										<Button text="Criar" type="Emphasized" press="onCriarCliente" />
+										<Button text="Ler com bingAgregation" press="onClienteRead"/>
+										<Button text="Ordenar" press="onSortItens"/>
+										<SearchField
+											id="searchField"
+											tooltip="{i18n>worklistSearchTooltip}"
+											search=".onSearch2">
+											<layoutData>
+												<OverflowToolbarLayoutData
+													maxWidth="200px"
+													priority="NeverOverflow"/>
+											</layoutData>
+										</SearchField>
+									</OverflowToolbar>
+								</headerToolbar>
+
+								<columns>
+									<Column id="codeColumn">
+										<Text text="ID do Cliente" id="codeColumnTitle"/>
+									</Column>
+									<Column id="nameColumn" >
+										<Text text="Nome" id="nameColumnTitle"/>
+									</Column>
+									<Column id="unitNumberColumn" hAlign="End">
+										<Text text="UF" id="unitNumberColumnTitle"/>
+									</Column>
+									<Column hAlign="End">
+										<Text text="Status" />
+									</Column>
+
+									<Column hAlign="End">
+										<Text text="Alterar Status" />
+									</Column>									
+								</columns>
+								<items>
+									<ColumnListItem
+										type="Navigation"
+										press=".onPress">
+										<cells>
+											<ObjectIdentifier
+												title="{
+														path: 'ClienteID',
+														formatter: '.formatter.idText'
+														}"/>
+											<ObjectAttribute
+												text="{Nome}"/>							
+											<ObjectStatus
+												text="{UF}"/>
+											<ObjectStatus
+												text="{
+												path: 'Status',
+												formatter: '.formatter.statusText'
+												}"/>
+											<Button icon="sap-icon://letter" 
+											press="onAlterarStatus" />								
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</content>
+
+					</IconTabFilter>
+					<IconTabFilter text="Vendas" key="key2">
+						<content>
+							<core:Fragment fragmentName="meufiori.cadastrodeclientes.view.ListaVendas" type="XML" />
+						</content>
+					</IconTabFilter>
+					<core:ExtensionPoint name="extWorkListTabPanel"	/>			
+				</items>
+			</IconTabBar>
+		</semantic:content>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+
+	</semantic:SemanticPage>
+
+</mvc:View>

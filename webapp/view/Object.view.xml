@@ -1,0 +1,114 @@
+<mvc:View
+	controllerName="meufiori.cadastrodeclientes.controller.Object"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:semantic="sap.f.semantic">
+
+	<semantic:SemanticPage
+		id="page"
+		showFooter="true"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false"
+		busy="{objectView>/busy}"
+		busyIndicatorDelay="{objectView>/delay}">
+
+		<semantic:titleHeading>
+			<Title
+				text="{Nome}"
+				level="H2"/>
+		</semantic:titleHeading>
+
+		<semantic:headerContent>
+			<ObjectNumber
+				unit="{UF}"
+			/>
+		</semantic:headerContent>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+		<l:VerticalLayout width="100%">
+		<f:SimpleForm
+			editable="true"
+			layout="ResponsiveGridLayout"
+			labelSpanXL="3"
+			labelSpanL="3"
+			labelSpanM="3"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false"
+			>
+			<Label text="ID" />
+			<Text text="{ClienteID}" />
+
+			<Label text="Nome" />
+			<Input value="{Nome}" id="inputNome"	/>
+
+			<Label text="Telefone" />
+			<Input value="{Telefone}"/>	
+			
+			<Label text="UF"/>
+			<Input value="{UF}" 
+				id="inpUf"
+				showValueHelp="true"
+				valueHelpRequest=".onValueHelpRequest"			
+			/>
+		</f:SimpleForm>	
+		
+		
+		<List
+			growing="true"
+			growingScrollToLoad="true"
+			growingThreshold="20"
+			id="vendasListCliente"
+			headerText="Lista de Vendas"
+			class="sapUiResponsiveMargin"
+			width="auto"
+			items="{
+				path : 'vendas',
+				sorter: {
+				path: 'DataCriacao',
+				descending: true
+				},
+				parameters:{
+					expand: 'cliente'
+				}
+			}">
+			<items>
+			<ObjectListItem
+				title="{Descricao}"
+				number="{ValorLiquido}"
+				numberState="{=	${ValorLiquido} > 500 ? 'Error' : 'Success' }"
+				>
+
+				<attributes>
+				<ObjectAttribute text="{IDVenda}" />
+				<ObjectAttribute 
+					text="{DataCriacao}" />
+					<ObjectAttribute text="{cliente/Email}" />
+				</attributes>
+			</ObjectListItem>
+			</items>
+		</List>
+
+	</l:VerticalLayout>
+
+<!-- Custom Footer Content-->
+		<semantic:footerCustomActions>
+			<Button type="Accept" text="Gravar" press="onGravar2" />
+			<Button type="Reject" text="Cancelar" press="onCancelar" />
+		</semantic:footerCustomActions>	
+
+	</semantic:SemanticPage>
+
+</mvc:View>
